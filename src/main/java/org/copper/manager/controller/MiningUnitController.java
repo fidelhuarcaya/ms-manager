@@ -1,9 +1,14 @@
 package org.copper.manager.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.copper.manager.dto.request.MiningUnitRequest;
+import org.copper.manager.dto.response.MiningUnitResponse;
 import org.copper.manager.entity.MiningUnit;
+import org.copper.manager.service.mining.unit.MiningUnitService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -12,7 +17,7 @@ public class MiningUnitController {
     private final MiningUnitService miningUnitService;
 
     @GetMapping
-    public ResponseEntity<MiningUnitResponse> getAll() {
+    public ResponseEntity<List<MiningUnitResponse>> getAll() {
         return ResponseEntity.ok(miningUnitService.getAll());
     }
 
