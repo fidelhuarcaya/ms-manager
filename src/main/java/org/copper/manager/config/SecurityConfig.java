@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.copper.manager.jwt.JwtAuthenticatorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,12 +33,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(authRequest->
-                        authRequest.requestMatchers("/api/auth/login", "/api/auth/register")
-                                .permitAll()
-                                .anyRequest()
-                                .authenticated()
-
+                .authorizeHttpRequests(authRequest ->
+                        authRequest.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                                .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
+                                .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/mining-units")
+@RequestMapping("/api/mining-units")
 public class MiningUnitController {
     private final MiningUnitService miningUnitService;
 
