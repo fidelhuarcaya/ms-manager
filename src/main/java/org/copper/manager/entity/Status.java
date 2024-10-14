@@ -11,7 +11,6 @@ import org.copper.manager.common.StatusCode;
 @Table(name = "status")
 public class Status {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

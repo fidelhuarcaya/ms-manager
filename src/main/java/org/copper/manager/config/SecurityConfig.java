@@ -2,7 +2,7 @@ package org.copper.manager.config;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.copper.users.jwt.JwtAuthenticatorFilter;
+import org.copper.manager.jwt.JwtAuthenticatorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;

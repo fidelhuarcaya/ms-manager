@@ -1,7 +1,7 @@
 package org.copper.manager.config;
 
 import lombok.RequiredArgsConstructor;
-import org.copper.users.repository.UserRepository;
+import org.copper.manager.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -6,7 +6,7 @@ import io.jsonwebtoken.impl.DefaultClaims;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
-import org.copper.users.exception.RequestException;
+import org.copper.manager.exception.RequestException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
