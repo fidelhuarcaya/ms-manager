@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "institution")
-public class Institution {
+@Table(name = "equipment")
+public class Equipment extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -18,6 +18,11 @@ public class Institution {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "area_id")
+    private Area area;
+
+    @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
+
 }

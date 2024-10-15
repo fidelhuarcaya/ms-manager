@@ -5,6 +5,8 @@ import lombok.Data;
 
 @Data
 public class MiningUnitRequest {
+    private Long id;
+
     @NotBlank(message = "El nombre es requerido")
     private String name;
 

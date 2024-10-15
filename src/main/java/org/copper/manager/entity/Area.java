@@ -17,4 +17,12 @@ public class Area extends Auditable{
     @Column(name = "name")
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "mining_unit_id")
+    private MiningUnit miningUnit;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
+
 }

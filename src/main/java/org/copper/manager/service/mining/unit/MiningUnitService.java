@@ -12,4 +12,6 @@ public interface MiningUnitService {
     MiningUnitResponse update(Long id, MiningUnitRequest request);
 
     List<MiningUnitResponse> getAll();
+
+    void delete(Long id);
 }

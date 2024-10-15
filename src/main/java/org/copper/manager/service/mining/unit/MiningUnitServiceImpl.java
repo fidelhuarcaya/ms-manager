@@ -23,12 +23,22 @@ public class MiningUnitServiceImpl implements MiningUnitService {
     }
 
     @Override
+    public void delete(Long id) {
+        miningUnitRepository.deleteById(id);
+    }
+
+    @Override
     public MiningUnitResponse create(MiningUnitRequest request) {
         return miningUnitMapper.toResponse(miningUnitRepository.save(miningUnitMapper.toEntity(request)));
     }
 
     @Override
     public MiningUnitResponse update(Long id, MiningUnitRequest request) {
+        if (!miningUnitRepository.existsById(id)){
+            throw new RuntimeException("Unidad minera no encontrada");
+        }
+        request.setId(id);
         return miningUnitMapper.toResponse(miningUnitRepository.save(miningUnitMapper.toEntity(request)));
     }
+
 }

@@ -20,4 +20,7 @@ public class MiningUnit extends Auditable  {
     @Column(name = "url_logo")
     private String urlLogo;
 
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
 }

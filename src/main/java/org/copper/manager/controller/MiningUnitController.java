@@ -35,4 +35,11 @@ public class MiningUnitController {
     public ResponseEntity<MiningUnitResponse> update(@PathVariable Long id, @RequestBody @Valid MiningUnitRequest request) {
         return ResponseEntity.ok(miningUnitService.update(id, request));
     }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        miningUnitService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
