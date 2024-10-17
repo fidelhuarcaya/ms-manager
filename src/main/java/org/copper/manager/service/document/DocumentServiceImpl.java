@@ -1,23 +1,24 @@
 package org.copper.manager.service.document;
 
 import lombok.RequiredArgsConstructor;
-import org.copper.manager.dto.request.CraftRequest;
+import org.copper.manager.common.StatusCode;
 import org.copper.manager.dto.request.DocumentRequest;
-import org.copper.manager.dto.response.CraftResponse;
 import org.copper.manager.dto.response.DocumentResponse;
+import org.copper.manager.dto.response.StatusResponse;
 import org.copper.manager.exception.RequestException;
 import org.copper.manager.mapper.DocumentMapper;
 import org.copper.manager.repository.DocumentRepository;
+import org.copper.manager.service.status.StatusService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class DocumentServiceImpl implements DocumentService{
-private final DocumentRepository documentRepository;
-private final DocumentMapper documentMapper;
+public class DocumentServiceImpl implements DocumentService {
+    private final DocumentRepository documentRepository;
+    private final DocumentMapper documentMapper;
+    private final StatusService statusService;
 
 
     @Override
@@ -27,14 +28,16 @@ private final DocumentMapper documentMapper;
 
     @Override
     public DocumentResponse create(DocumentRequest request) {
+        StatusResponse status = statusService.findByCode(StatusCode.ACTIVE);
+        request.setStatusId(status.id());
         return documentMapper.toResponse(
                 documentRepository.save(documentMapper.toEntity(request)));
     }
 
     @Override
     public DocumentResponse update(Long id, DocumentRequest request) {
-        if (!documentRepository.existsById(id)){
-            throw new RequestException("El documento con id "+ id + "no exitste.");
+        if (!documentRepository.existsById(id)) {
+            throw new RequestException("El documento con id " + id + "no exitste.");
         }
         request.setId(id);
         return create(request);
@@ -42,6 +45,6 @@ private final DocumentMapper documentMapper;
 
     @Override
     public void delete(Long id) {
-    documentRepository.deleteById(id);
+        documentRepository.deleteById(id);
     }
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 public class DocumentRequest {
     private Long id;
     private String name;
-    private Long CraftId;
+    private String url;
+    private Long craftId;
     private Integer statusId;
 }

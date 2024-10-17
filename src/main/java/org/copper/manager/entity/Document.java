@@ -17,6 +17,9 @@ public class Document extends Auditable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "url")
+    private String url;
+
     @ManyToOne
     @JoinColumn(name = "craft_id")
     private Craft craft;

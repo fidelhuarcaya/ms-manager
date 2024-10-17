@@ -7,6 +7,8 @@ import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CraftMapper {
+    @Mapping(target = "equipment.id", source = "equipmentId")
+    @Mapping(target = "status.id", source = "statusId")
     Craft toEntity(CraftRequest request);
 
     CraftResponse toResponse(Craft craft);

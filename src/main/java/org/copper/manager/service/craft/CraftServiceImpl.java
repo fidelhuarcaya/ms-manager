@@ -1,11 +1,14 @@
 package org.copper.manager.service.craft;
 
 import lombok.RequiredArgsConstructor;
+import org.copper.manager.common.StatusCode;
 import org.copper.manager.dto.request.CraftRequest;
 import org.copper.manager.dto.response.CraftResponse;
+import org.copper.manager.dto.response.StatusResponse;
 import org.copper.manager.exception.RequestException;
 import org.copper.manager.mapper.CraftMapper;
 import org.copper.manager.repository.CraftRepository;
+import org.copper.manager.service.status.StatusService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 public class CraftServiceImpl implements CraftService{
     private final CraftRepository craftRepository;
     private final CraftMapper craftMapper;
+    private final StatusService statusService;
 
     @Override
     public List<CraftResponse> getAll() {
@@ -24,6 +28,9 @@ public class CraftServiceImpl implements CraftService{
 
     @Override
     public CraftResponse create(CraftRequest request) {
+        StatusResponse status = statusService.findByCode(StatusCode.ACTIVE);
+        request.setStatusId(status.id());
+        System.out.println(request);
         return craftMapper.toResponse(
                 craftRepository.save(craftMapper.toEntity(request)));
     }

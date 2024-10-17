@@ -1,11 +1,14 @@
 package org.copper.manager.service.equipment;
 
 import lombok.RequiredArgsConstructor;
+import org.copper.manager.common.StatusCode;
 import org.copper.manager.dto.request.EquipmentRequest;
 import org.copper.manager.dto.response.EquipmentResponse;
+import org.copper.manager.dto.response.StatusResponse;
 import org.copper.manager.exception.RequestException;
 import org.copper.manager.mapper.EquipmentMapper;
 import org.copper.manager.repository.EquipmentRepository;
+import org.copper.manager.service.status.StatusService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.List;
 public class EquipmentServiceImpl implements EquipmentService {
     private final EquipmentRepository equipmentRepository;
     private final EquipmentMapper equipmentMapper;
+    private final StatusService statusService;
 
     @Override
     public List<EquipmentResponse> getAll() {
@@ -24,6 +28,8 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public EquipmentResponse create(EquipmentRequest request) {
+        StatusResponse status = statusService.findByCode(StatusCode.ACTIVE);
+        request.setStatusId(status.id());
         return equipmentMapper.toResponse(
                 equipmentRepository.save(equipmentMapper.toEntity(request)));
     }
