@@ -13,6 +13,8 @@ public class MiningUnitResponse{
 
     private String urlLogo;
 
+    private StatusResponse status;
+
     @JsonFormat(pattern = "dd/MM/yyyy hh:MM:ss")
     private LocalDateTime createdAt;
 

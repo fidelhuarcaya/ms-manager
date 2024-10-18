@@ -10,6 +10,8 @@ public class MiningUnitRequest {
     @NotBlank(message = "El nombre es requerido")
     private String name;
 
+    private Integer statusId;
+
     @NotBlank(message = "La URL del logo es requerida")
     private String urlLogo;
 }
