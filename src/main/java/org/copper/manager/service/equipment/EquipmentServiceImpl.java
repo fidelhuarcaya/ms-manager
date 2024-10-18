@@ -39,7 +39,9 @@ public class EquipmentServiceImpl implements EquipmentService {
         if (!equipmentRepository.existsById(id)) {
             throw new RequestException("El equipo con id: " + id + " no existe.");
         }
-        return create(request);
+        request.setId(id);
+        return equipmentMapper.toResponse(
+                equipmentRepository.save(equipmentMapper.toEntity(request)));
     }
 
     @Override

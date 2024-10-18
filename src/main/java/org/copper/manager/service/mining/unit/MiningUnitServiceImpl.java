@@ -44,7 +44,8 @@ public class MiningUnitServiceImpl implements MiningUnitService {
             throw new RuntimeException("Unidad minera no encontrada");
         }
         request.setId(id);
-        return miningUnitMapper.toResponse(miningUnitRepository.save(miningUnitMapper.toEntity(request)));
+        return miningUnitMapper.toResponse(miningUnitRepository
+                .save(miningUnitMapper.toEntity(request)));
     }
 
 }

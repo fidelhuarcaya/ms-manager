@@ -40,7 +40,8 @@ public class DocumentServiceImpl implements DocumentService {
             throw new RequestException("El documento con id " + id + "no exitste.");
         }
         request.setId(id);
-        return create(request);
+        return documentMapper.toResponse(documentRepository
+                .save(documentMapper.toEntity(request)));
     }
 
     @Override

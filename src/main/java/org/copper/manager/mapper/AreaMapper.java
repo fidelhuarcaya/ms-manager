@@ -16,5 +16,6 @@ public interface AreaMapper {
     List<AreaResponse> toResponseList(List<Area> entities);
 
     @Mapping(target = "miningUnit.id", source = "miningUnitId")
+    @Mapping(target = "status.id", source = "statusId")
     Area toEntity(AreaRequest request);
 }

@@ -30,7 +30,6 @@ public class CraftServiceImpl implements CraftService{
     public CraftResponse create(CraftRequest request) {
         StatusResponse status = statusService.findByCode(StatusCode.ACTIVE);
         request.setStatusId(status.id());
-        System.out.println(request);
         return craftMapper.toResponse(
                 craftRepository.save(craftMapper.toEntity(request)));
     }

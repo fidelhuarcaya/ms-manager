@@ -5,7 +5,7 @@ import org.copper.manager.common.StatusCode;
 import org.copper.manager.dto.request.AreaRequest;
 import org.copper.manager.dto.response.AreaResponse;
 import org.copper.manager.dto.response.StatusResponse;
-import org.copper.manager.entity.Status;
+import org.copper.manager.exception.RequestException;
 import org.copper.manager.mapper.AreaMapper;
 import org.copper.manager.repository.AreaRepository;
 import org.copper.manager.service.status.StatusService;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AreaServiceImpl implements AreaService{
+public class AreaServiceImpl implements AreaService {
     private final AreaRepository areaRepository;
     private final AreaMapper areaMapper;
     private final StatusService statusService;
@@ -35,14 +35,18 @@ public class AreaServiceImpl implements AreaService{
 
     @Override
     public AreaResponse update(Long id, AreaRequest request) {
-        return areaMapper.toResponse(areaRepository.save(areaMapper.toEntity(request)));
+        if (!areaRepository.existsById(id)) {
+            throw new RequestException("El área seleccionada con id: " + id+" no existe.");
+        }
+        request.setId(id);
+        return areaMapper.toResponse(areaRepository
+                .save(areaMapper.toEntity(request)));
     }
 
     @Override
     public void delete(Long id) {
         areaRepository.deleteById(id);
     }
-
 
 
 }
