@@ -8,6 +8,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface DocumentMapper {
     @Mapping(target = "craft.id", source = "craftId")
@@ -16,4 +18,5 @@ public interface DocumentMapper {
 
     DocumentResponse toResponse(Document document);
 
+    List<DocumentResponse> toResponseList(Object allByStatusId);
 }
