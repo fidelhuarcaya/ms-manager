@@ -30,13 +30,13 @@ public class EquipmentController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<EquipmentResponse> update(@PathVariable Long id, @RequestBody @Valid EquipmentRequest request) {
+    public ResponseEntity<EquipmentResponse> update(@PathVariable("id") Long id, @RequestBody @Valid EquipmentRequest request) {
         return ResponseEntity.ok(equipmentService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         equipmentService.delete(id);
         return ResponseEntity.noContent().build();
     }

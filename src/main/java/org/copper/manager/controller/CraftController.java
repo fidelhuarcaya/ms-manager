@@ -31,13 +31,13 @@ public class CraftController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<CraftResponse> update(@PathVariable Long id, @RequestBody @Valid CraftRequest request) {
+    public ResponseEntity<CraftResponse> update(@PathVariable("id") Long id, @RequestBody @Valid CraftRequest request) {
         return ResponseEntity.ok(craftService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         craftService.delete(id);
         return ResponseEntity.noContent().build();
     }

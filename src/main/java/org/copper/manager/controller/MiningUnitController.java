@@ -32,13 +32,13 @@ public class MiningUnitController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<MiningUnitResponse> update(@PathVariable Long id, @RequestBody @Valid MiningUnitRequest request) {
+    public ResponseEntity<MiningUnitResponse> update(@PathVariable("id") Long id, @RequestBody @Valid MiningUnitRequest request) {
         return ResponseEntity.ok(miningUnitService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         miningUnitService.delete(id);
         return ResponseEntity.noContent().build();
     }

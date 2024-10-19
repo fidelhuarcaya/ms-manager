@@ -31,13 +31,13 @@ public class AreaController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<AreaResponse> update(@PathVariable Long id, @RequestBody @Valid AreaRequest request) {
+    public ResponseEntity<AreaResponse> update(@PathVariable("id") Long id, @RequestBody @Valid AreaRequest request) {
         return ResponseEntity.ok(areaService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         areaService.delete(id);
         return ResponseEntity.noContent().build();
     }

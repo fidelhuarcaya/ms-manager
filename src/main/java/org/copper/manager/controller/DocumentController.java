@@ -31,13 +31,13 @@ public class DocumentController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<DocumentResponse> update(@PathVariable Long id, @RequestBody @Valid DocumentRequest request) {
+    public ResponseEntity<DocumentResponse> update(@PathVariable("id") Long id, @RequestBody @Valid DocumentRequest request) {
         return ResponseEntity.ok(documentService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         documentService.delete(id);
         return ResponseEntity.noContent().build();
     }
