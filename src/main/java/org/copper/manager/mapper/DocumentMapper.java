@@ -18,5 +18,5 @@ public interface DocumentMapper {
 
     DocumentResponse toResponse(Document document);
 
-    List<DocumentResponse> toResponseList(Object allByStatusId);
+    List<DocumentResponse> toResponseList(List<Document> entities);
 }

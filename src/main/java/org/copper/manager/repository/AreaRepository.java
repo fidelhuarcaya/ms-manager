@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AreaRepository extends JpaRepository<Area, Long> {
+public interface AreaRepository extends JpaRepository<Area, Integer> {
 
     List<Area> findAllByStatusId(Integer statusId);
 }

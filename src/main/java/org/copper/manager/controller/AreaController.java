@@ -18,7 +18,7 @@ public class AreaController {
     private final AreaService areaService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN' or 'USER' or 'BASIC' or 'PREMIUM')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM')")
     public ResponseEntity<List<AreaResponse>> getAll() {
         return ResponseEntity.ok(areaService.getAll());
     }
@@ -31,13 +31,13 @@ public class AreaController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<AreaResponse> update(@PathVariable("id") Long id, @RequestBody @Valid AreaRequest request) {
+    public ResponseEntity<AreaResponse> update(@PathVariable("id") Integer id, @RequestBody @Valid AreaRequest request) {
         return ResponseEntity.ok(areaService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         areaService.delete(id);
         return ResponseEntity.noContent().build();
     }

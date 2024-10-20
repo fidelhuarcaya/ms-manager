@@ -11,7 +11,7 @@ public interface AreaService {
 
     AreaResponse create(AreaRequest request);
 
-    AreaResponse update(Long id, AreaRequest request);
+    AreaResponse update(Integer id, AreaRequest request);
 
-    void delete(Long id);
+    void delete(Integer id);
 }

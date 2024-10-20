@@ -1,8 +1,7 @@
 package org.copper.manager.service.area;
 
-import lombok.NoArgsConstructor;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.SuperBuilder;
 import org.copper.manager.common.StatusCode;
 import org.copper.manager.dto.request.AreaRequest;
 import org.copper.manager.dto.response.AreaResponse;
@@ -12,27 +11,24 @@ import org.copper.manager.exception.RequestException;
 import org.copper.manager.mapper.AreaMapper;
 import org.copper.manager.repository.AreaRepository;
 import org.copper.manager.service.common.basic.AbstractEntityService;
-import org.copper.manager.service.common.context.ContextService;
-import org.copper.manager.service.status.StatusService;
 import org.springframework.stereotype.Service;
-
-import org.copper.manager.common.RoleCode;
 
 import java.util.List;
 
 @Service
-@SuperBuilder
+@RequiredArgsConstructor
 public class AreaServiceImpl extends AbstractEntityService<Area, AreaResponse> implements AreaService {
     private final AreaRepository areaRepository;
     private final AreaMapper areaMapper;
 
     @Override
-    protected List<Area> findAll() {
-        return areaRepository.findAll();
+    protected List<AreaResponse> findAll() {
+        return areaMapper.toResponseList(areaRepository.findAll());
     }
 
 
     @Override
+    @Transactional
     public AreaResponse create(AreaRequest request) {
         StatusResponse status = statusService.findByCode(StatusCode.ACTIVE);
         request.setStatusId(status.id());
@@ -41,7 +37,8 @@ public class AreaServiceImpl extends AbstractEntityService<Area, AreaResponse> i
 
 
     @Override
-    public AreaResponse update(Long id, AreaRequest request) {
+    @Transactional
+    public AreaResponse update(Integer id, AreaRequest request) {
         if (!areaRepository.existsById(id)) {
             throw new RequestException("El área seleccionada con id: " + id+" no existe.");
         }
@@ -51,7 +48,7 @@ public class AreaServiceImpl extends AbstractEntityService<Area, AreaResponse> i
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         areaRepository.deleteById(id);
     }
 

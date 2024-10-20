@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class AreaRequest {
-private Long id;
+private Integer id;
 private String name;
 private Long miningUnitId;
 private Integer statusId;

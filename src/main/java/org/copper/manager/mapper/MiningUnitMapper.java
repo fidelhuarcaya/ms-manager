@@ -7,6 +7,8 @@ import org.copper.manager.entity.MiningUnit;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface MiningUnitMapper {
 
@@ -14,4 +16,6 @@ public interface MiningUnitMapper {
     MiningUnit toEntity(MiningUnitRequest request);
 
     MiningUnitResponse toResponse(MiningUnit entity);
+
+    List<MiningUnitResponse> toResponseList(List<MiningUnit> all);
 }
