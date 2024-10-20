@@ -21,6 +21,4 @@ public class UserRole extends Auditable {
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
-
-
 }
