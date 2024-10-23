@@ -41,4 +41,10 @@ public class AreaController {
         areaService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{miningUnitId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM')")
+    public ResponseEntity<List<AreaResponse>> getByMiningUnitId(@PathVariable("miningUnitId") Long miningUnitId) {
+        return ResponseEntity.ok(areaService.getByMiningUnitId(miningUnitId));
+    }
 }

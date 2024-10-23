@@ -56,6 +56,11 @@ public class CraftServiceImpl extends AbstractEntityService<Craft, CraftResponse
     }
 
     @Override
+    public List<CraftResponse> getByEquipmentId(Integer equipmentId) {
+        return craftMapper.toResponseList(craftRepository.findByEquipmentId(equipmentId));
+    }
+
+    @Override
     protected List<Craft> findAllByStatusId(Integer statusId) {
         return craftRepository.findAllByStatusId(statusId);
     }

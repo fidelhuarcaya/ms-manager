@@ -14,4 +14,6 @@ public interface AreaService {
     AreaResponse update(Integer id, AreaRequest request);
 
     void delete(Integer id);
+
+    List<AreaResponse> getByMiningUnitId(Long miningUnitId);
 }

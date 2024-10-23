@@ -13,4 +13,6 @@ public interface EquipmentService {
     EquipmentResponse update(Long id, EquipmentRequest request);
 
     void delete(Long id);
+
+    List<EquipmentResponse> getByAreaId(Integer areaId);
 }

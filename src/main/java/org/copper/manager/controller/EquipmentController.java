@@ -41,4 +41,10 @@ public class EquipmentController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{areaId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM')")
+    public ResponseEntity<List<EquipmentResponse>> getByAreaId(@PathVariable("areaId") Integer areaId) {
+        return ResponseEntity.ok(equipmentService.getByAreaId(areaId));
+    }
+
 }

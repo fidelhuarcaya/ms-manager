@@ -41,4 +41,10 @@ public class DocumentController {
         documentService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{craftId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM')")
+    public ResponseEntity<List<DocumentResponse>> getByCraftId(@PathVariable("craftId") Long craftId) {
+        return ResponseEntity.ok(documentService.getByCraftId(craftId));
+    }
 }

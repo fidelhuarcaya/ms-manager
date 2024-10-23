@@ -10,4 +10,6 @@ import java.util.List;
 public interface AreaRepository extends JpaRepository<Area, Integer> {
 
     List<Area> findAllByStatusId(Integer statusId);
+
+    List<Area> findByMiningUnitId(Long miningUnitId);
 }

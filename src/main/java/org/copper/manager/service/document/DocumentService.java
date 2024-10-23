@@ -13,4 +13,6 @@ public interface DocumentService {
     DocumentResponse update(Long id, DocumentRequest request);
 
     void delete(Long id);
+
+    List<DocumentResponse> getByCraftId(Long craftId);
 }

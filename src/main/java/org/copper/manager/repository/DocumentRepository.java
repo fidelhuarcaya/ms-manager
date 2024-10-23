@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface DocumentRepository extends JpaRepository<Document, Long> {
     List<Document> findAllByStatusId(Integer id);
+
+    List<Document> findByCraftId(Long craftId);
 }

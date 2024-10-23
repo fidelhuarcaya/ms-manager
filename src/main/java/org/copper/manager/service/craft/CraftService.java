@@ -13,4 +13,6 @@ public interface CraftService {
     CraftResponse update(Long id, CraftRequest request);
 
     void delete(Long id);
+
+    List<CraftResponse> getByEquipmentId(Integer equipmentId);
 }

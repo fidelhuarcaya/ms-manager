@@ -56,6 +56,11 @@ public class EquipmentServiceImpl extends AbstractEntityService<Equipment, Equip
     }
 
     @Override
+    public List<EquipmentResponse> getByAreaId(Integer areaId) {
+        return equipmentMapper.toResponseList(equipmentRepository.findByAreaId(areaId));
+    }
+
+    @Override
     protected List<EquipmentResponse> mapToResponseList(List<Equipment> entities) {
         return equipmentMapper.toResponseList(entities);
     }

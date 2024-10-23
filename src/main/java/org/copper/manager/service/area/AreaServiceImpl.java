@@ -53,6 +53,11 @@ public class AreaServiceImpl extends AbstractEntityService<Area, AreaResponse> i
     }
 
     @Override
+    public List<AreaResponse> getByMiningUnitId(Long miningUnitId) {
+        return areaMapper.toResponseList(areaRepository.findByMiningUnitId(miningUnitId));
+    }
+
+    @Override
     protected List<AreaResponse> mapToResponseList(List<Area> entities) {
         return areaMapper.toResponseList(entities);
     }

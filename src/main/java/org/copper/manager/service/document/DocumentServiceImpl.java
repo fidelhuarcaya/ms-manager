@@ -56,6 +56,12 @@ public class DocumentServiceImpl extends AbstractEntityService<Document, Documen
     }
 
     @Override
+    public List<DocumentResponse> getByCraftId(Long craftId) {
+        return documentMapper.toResponseList(documentRepository
+                .findByCraftId(craftId));
+    }
+
+    @Override
     protected List<Document> findAllByStatusId(Integer statusId) {
         return documentRepository.findAllByStatusId(statusId);
     }
