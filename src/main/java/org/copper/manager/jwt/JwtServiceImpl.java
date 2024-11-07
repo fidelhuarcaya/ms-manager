@@ -70,7 +70,7 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public String getUsernameFromToken(String token) {
-        Jws<Claims> claimsJws = getAllClaims(token);
+        Jws<Claims> claimsJws = getAllClaims(resolveToken(token));
         if (Objects.nonNull(claimsJws)) {
             return claimsJws.getBody().getSubject();
         }
@@ -103,6 +103,13 @@ public class JwtServiceImpl implements JwtService {
                 .map(GrantedAuthority::getAuthority).toList();
         claims.put("roles", roles);
         return claims;
+    }
+
+    private String resolveToken(String bearerToken) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return bearerToken;
     }
 }
 
