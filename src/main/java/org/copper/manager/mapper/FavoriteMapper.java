@@ -9,6 +9,8 @@ import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {DocumentMapper.class})
 public interface FavoriteMapper {
+    @Mapping(source = "documentId", target = "document.id" )
+    @Mapping(source = "userId", target = "user.id")
     Favorite toEntity(FavoriteRequest request);
 
     FavoriteResponse toDto(Favorite favorite);

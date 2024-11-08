@@ -3,7 +3,6 @@ package org.copper.manager.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.copper.manager.dto.request.FavoriteRequest;
-import org.copper.manager.dto.response.AreaResponse;
 import org.copper.manager.dto.response.FavoriteResponse;
 import org.copper.manager.jwt.JwtService;
 import org.copper.manager.service.favorite.FavoriteService;
@@ -29,14 +28,16 @@ public class FavoriteController {
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM')")
-    public ResponseEntity<FavoriteResponse> save(@RequestBody @Valid FavoriteRequest favoriteRequest) {
+    public ResponseEntity<FavoriteResponse> save(@RequestBody @Valid FavoriteRequest favoriteRequest, @RequestHeader("Authorization") String token) {
+        Long userId = jwtService.getUserIdFromToken(token);
+        favoriteRequest.setUserId(userId);
         return ResponseEntity.ok(favoriteService.save(favoriteRequest));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM')")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-        favoriteService.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable("id") Long documentId) {
+        favoriteService.delete(documentId);
         return ResponseEntity.noContent().build();
     }
 

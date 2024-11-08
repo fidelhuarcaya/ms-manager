@@ -10,5 +10,5 @@ public interface FavoriteService {
 
     FavoriteResponse save(FavoriteRequest favoriteRequest);
 
-    void delete(Long id);
+    void delete(Long documentId);
 }

@@ -1,20 +1,15 @@
 package org.copper.manager.jwt;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.impl.DefaultClaims;
-import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.copper.manager.exception.RequestException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -27,27 +22,6 @@ public class JwtServiceImpl implements JwtService {
     @Value("${jwt.expiration-time}")
     private long expirationTime;
 
-    @Override
-    public String getToken(UserDetails userDetails, long currentTime) throws JsonProcessingException {
-        return getToken(generateClaims(userDetails), userDetails, currentTime);
-    }
-
-    private String getToken(Map<String, Object> claims, UserDetails userDetails, long currentTime) {
-        if (claims == null || userDetails == null) {
-            throw new IllegalArgumentException("Claims and UserDetails must not be null");
-        }
-        return Jwts
-                .builder()
-                .setClaims(claims)
-                .setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date(currentTime))
-                .setExpiration(new Date(currentTime + expirationTime))
-                .signWith(getKey(), SignatureAlgorithm.HS512)
-                .setHeaderParam("typ", "JWT")
-                .base64UrlEncodeWith(Encoders.BASE64URL)
-                .compact();
-    }
-
     private Key getKey() {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
@@ -58,11 +32,8 @@ public class JwtServiceImpl implements JwtService {
                     .setSigningKey(getKey())
                     .build()
                     .parseClaimsJws(token);
-
-            // Verificar si la fecha de expiración es anterior a la fecha actual
             return claims.getBody().getExpiration().before(new Date());
         } catch (JwtException e) {
-            // Si hay una excepción, asumimos que el token es inválido o ha expirado
             return true;
         }
     }
@@ -84,6 +55,19 @@ public class JwtServiceImpl implements JwtService {
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
+    @Override
+    public Long getUserIdFromToken(String token) {
+        Jws<Claims> claimsJws = getAllClaims(resolveToken(token));
+        if (Objects.nonNull(claimsJws)) {
+            String id = findClaimByKey(claimsJws.getBody(), "id");
+            if (Objects.isNull(id)) {
+                throw new RequestException("The token is invalid.");
+            }
+            return Long.parseLong(id);
+        }
+        throw new RequestException("The token is invalid.");
+    }
+
     private Jws<Claims> getAllClaims(String token) {
         try {
             return Jwts.parserBuilder()
@@ -96,14 +80,13 @@ public class JwtServiceImpl implements JwtService {
 
     }
 
-    private Claims generateClaims(UserDetails userDetails) {
-        Claims claims = new DefaultClaims();
-        claims.put("username", userDetails.getUsername());
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority).toList();
-        claims.put("roles", roles);
-        return claims;
+    private String findClaimByKey(Map<String, Object> claims, String key) {
+        if (claims.containsKey(key)) {
+            return claims.get(key).toString();
+        }
+        return null;
     }
+
 
     private String resolveToken(String bearerToken) {
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
