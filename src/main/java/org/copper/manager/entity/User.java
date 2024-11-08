@@ -1,5 +1,8 @@
 package org.copper.manager.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,7 +48,9 @@ public class User implements UserDetails {
     private Status status;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<UserRole> userRoles;
+
 
     public String getFullName() {
         return name + " " + (lastName != null ? lastName : "") + " " + (secondLastName != null ? secondLastName : "");

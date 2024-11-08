@@ -21,6 +21,4 @@ public class Favorite {
     @ManyToOne
     @JoinColumn(name = "document_id", nullable = false)
     private Document document;
-
-
 }

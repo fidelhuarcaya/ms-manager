@@ -1,6 +1,7 @@
 package org.copper.manager.repository;
 
 import org.copper.manager.entity.Favorite;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +13,9 @@ import java.util.List;
 
 @Repository
 public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
-    List<Favorite> findByUserEmail(String email);
+
+    @Query("select f from Favorite f where f.user.email = :email")
+    List<Favorite> findByUserEmail(@Param("email") String email);
 
     @Transactional
     @Modifying
