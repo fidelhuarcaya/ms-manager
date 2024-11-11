@@ -13,4 +13,6 @@ public interface VideoService {
     VideoResponse update(Long id, VideoRequest request);
 
     void delete(Long id);
+
+    List<VideoResponse> getByTopic(Long topicId);
 }
