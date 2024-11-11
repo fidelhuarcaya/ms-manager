@@ -6,6 +6,7 @@ import org.copper.manager.jwt.JwtAuthenticatorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -36,6 +37,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRequest ->
                         authRequest.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/documents/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/mining-units").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/areas/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/equipments/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/crafts/**").permitAll()
+
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement->

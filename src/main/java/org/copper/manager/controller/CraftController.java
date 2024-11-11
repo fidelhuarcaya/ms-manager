@@ -43,7 +43,6 @@ public class CraftController {
     }
 
     @GetMapping("/{equipmentId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM')")
     public ResponseEntity<List<CraftResponse>> getByEquipmentId(@PathVariable("equipmentId") Integer equipmentId) {
         return ResponseEntity.ok(craftService.getByEquipmentId(equipmentId));
     }

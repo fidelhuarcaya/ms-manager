@@ -19,7 +19,6 @@ public class MiningUnitController {
     private final MiningUnitService miningUnitService;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM')")
     public ResponseEntity<List<MiningUnitResponse>> getAll() {
         return ResponseEntity.ok(miningUnitService.getAll());
     }

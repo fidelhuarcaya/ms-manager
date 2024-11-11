@@ -43,7 +43,6 @@ public class AreaController {
     }
 
     @GetMapping("/{miningUnitId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM')")
     public ResponseEntity<List<AreaResponse>> getByMiningUnitId(@PathVariable("miningUnitId") Long miningUnitId) {
         return ResponseEntity.ok(areaService.getByMiningUnitId(miningUnitId));
     }
