@@ -9,6 +9,7 @@ import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface VideoMapper {
+    @Mapping(target = "status.id", source = "statusId")
     Video toEntity(VideoRequest request);
     VideoResponse toDto(Video Video);
     List<VideoResponse> toDtoList(List<Video> VideoList);

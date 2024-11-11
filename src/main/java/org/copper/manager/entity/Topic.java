@@ -17,6 +17,9 @@ public class Topic extends Auditable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "banner")
+    private String banner;
+
     @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
