@@ -1,10 +1,13 @@
 package org.copper.manager.service.course;
 
 import lombok.RequiredArgsConstructor;
+import org.copper.manager.common.StatusCode;
 import org.copper.manager.dto.request.CourseRequest;
 import org.copper.manager.dto.response.CourseResponse;
+import org.copper.manager.dto.response.StatusResponse;
 import org.copper.manager.mapper.CourseMapper;
 import org.copper.manager.repository.CourseRepository;
+import org.copper.manager.service.status.StatusService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
+    private final StatusService statusService;
 
     @Override
     public List<CourseResponse> getAll() {
@@ -27,6 +31,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseResponse create(CourseRequest request) {
+        StatusResponse status = statusService.findByCode(StatusCode.ACTIVE);
+        request.setStatusId(status.id());
         return courseMapper.toDto(courseRepository.save(courseMapper.toEntity(request)));
     }
 

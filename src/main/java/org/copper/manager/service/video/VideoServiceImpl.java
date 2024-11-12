@@ -1,7 +1,9 @@
 package org.copper.manager.service.video;
 
 import lombok.RequiredArgsConstructor;
+import org.copper.manager.common.StatusCode;
 import org.copper.manager.dto.request.VideoRequest;
+import org.copper.manager.dto.response.StatusResponse;
 import org.copper.manager.dto.response.VideoResponse;
 import org.copper.manager.entity.Video;
 import org.copper.manager.mapper.VideoMapper;
@@ -24,6 +26,8 @@ public class VideoServiceImpl extends AbstractEntityService<Video, VideoResponse
 
     @Override
     public VideoResponse create(VideoRequest request) {
+        StatusResponse status = statusService.findByCode(StatusCode.ACTIVE);
+        request.setStatusId(status.id());
         return videoMapper.toDto(videoRepository.save(videoMapper.toEntity(request)));
     }
 

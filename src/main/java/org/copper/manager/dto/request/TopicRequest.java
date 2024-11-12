@@ -6,10 +6,8 @@ import lombok.Data;
 @Data
 public class TopicRequest {
     private Long id;
-
     @NotBlank(message = "El nombre es requerido")
     private String name;
-    private String banner;
     private Long courseId;
     private Integer statusId;
 }
