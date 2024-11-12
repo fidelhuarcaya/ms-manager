@@ -22,6 +22,11 @@ public class TopicController {
         return ResponseEntity.ok(topicService.getAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<TopicResponse> getById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(topicService.getById(id));
+    }
+
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<TopicResponse> create(@RequestBody @Valid TopicRequest request) {

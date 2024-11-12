@@ -45,6 +45,11 @@ public class TopicServiceImpl  extends AbstractEntityService<Topic, TopicRespons
     }
 
     @Override
+    public TopicResponse getById(Long id) {
+        return topicMapper.toDto(topicRepository.findById(id).orElse(null));
+    }
+
+    @Override
     protected List<TopicResponse> mapToResponseList(List<Topic> entities) {
         return topicMapper.toDtoList(entities);
     }
