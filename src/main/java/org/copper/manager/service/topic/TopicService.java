@@ -15,4 +15,6 @@ public interface TopicService {
     void delete(Long id);
 
     TopicResponse getById(Long id);
+
+    List<TopicResponse> getTopicsByCourseId(Long id);
 }

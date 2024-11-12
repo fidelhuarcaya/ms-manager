@@ -46,6 +46,13 @@ public class TopicController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/course/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')"  )
+    public ResponseEntity<List<TopicResponse>> getTopicsByCourseId(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(topicService.getTopicsByCourseId(id));
+
+    }
+
 
 
 }

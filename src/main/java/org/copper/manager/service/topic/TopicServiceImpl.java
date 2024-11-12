@@ -5,7 +5,6 @@ import org.copper.manager.common.StatusCode;
 import org.copper.manager.dto.request.TopicRequest;
 import org.copper.manager.dto.response.StatusResponse;
 import org.copper.manager.dto.response.TopicResponse;
-import org.copper.manager.entity.Status;
 import org.copper.manager.entity.Topic;
 import org.copper.manager.mapper.TopicMapper;
 import org.copper.manager.repository.TopicRepository;
@@ -47,6 +46,11 @@ public class TopicServiceImpl  extends AbstractEntityService<Topic, TopicRespons
     @Override
     public TopicResponse getById(Long id) {
         return topicMapper.toDto(topicRepository.findById(id).orElse(null));
+    }
+
+    @Override
+    public List<TopicResponse> getTopicsByCourseId(Long id) {
+        return topicMapper.toDtoList(topicRepository.findTopicsByCourseId(id));
     }
 
     @Override
