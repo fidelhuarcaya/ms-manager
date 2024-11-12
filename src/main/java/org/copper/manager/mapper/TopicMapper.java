@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface TopicMapper {
     @Mapping(target = "status.id", source = "statusId")
+    @Mapping(target = "course.id", source = "courseId")
     Topic toEntity(TopicRequest request);
     TopicResponse toDto(Topic topic);
     List<TopicResponse> toDtoList(List<Topic> topicList);

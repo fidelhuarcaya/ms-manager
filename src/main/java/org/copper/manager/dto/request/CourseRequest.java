@@ -1,15 +1,12 @@
 package org.copper.manager.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class TopicRequest {
+public class CourseRequest {
     private Long id;
-
-    @NotBlank(message = "El nombre es requerido")
     private String name;
     private String banner;
-    private Long courseId;
+    private String description;
     private Integer statusId;
 }
