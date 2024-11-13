@@ -10,5 +10,4 @@ import java.io.Serializable;
 public class TopicResponse{
     private Long id;
     private String name;
-    private String banner;
 }
