@@ -25,7 +25,7 @@ public class DocumentController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<DocumentResponse> create(@RequestBody @Valid DocumentRequest request) {
+    public ResponseEntity<DocumentResponse> create(@ModelAttribute @Valid DocumentRequest request) {
         return ResponseEntity.ok(documentService.create(request));
     }
 

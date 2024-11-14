@@ -12,6 +12,7 @@ import org.copper.manager.mapper.DocumentMapper;
 import org.copper.manager.repository.DocumentRepository;
 import org.copper.manager.service.common.basic.AbstractEntityService;
 import org.copper.manager.service.common.context.ContextService;
+import org.copper.manager.service.file.FileService;
 import org.copper.manager.service.status.StatusService;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class DocumentServiceImpl extends AbstractEntityService<Document, Documen
     private final DocumentRepository documentRepository;
     private final DocumentMapper documentMapper;
     private final StatusService statusService;
-
+    private final FileService fileService;
 
     @Override
     public List<DocumentResponse> findAll() {
@@ -34,6 +35,8 @@ public class DocumentServiceImpl extends AbstractEntityService<Document, Documen
     @Override
     @Transactional
     public DocumentResponse create(DocumentRequest request) {
+        String url = fileService.upload(request.getFile());
+        request.setUrl(url);
         StatusResponse status = statusService.findByCode(StatusCode.ACTIVE);
         request.setStatusId(status.id());
         return documentMapper.toResponse(
