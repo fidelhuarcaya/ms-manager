@@ -42,7 +42,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET,"/api/areas/**").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/api/equipments/**").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/api/crafts/**").permitAll()
-                                .requestMatchers(HttpMethod.GET,"/api/courses").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/courses/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement->
