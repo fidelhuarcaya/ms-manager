@@ -15,6 +15,7 @@ import org.copper.manager.service.status.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 public abstract class AbstractEntityService<T, R> {
@@ -30,12 +31,12 @@ public abstract class AbstractEntityService<T, R> {
 
     public List<R> getAll() {
         String role = contextService.getCurrentUserRole();
-        if (role == null) {
+        if (role == null || !Objects.equals(RoleCode.ROLE_ANONYMOUS.name(), role)) {
             throw new RequestException("No se encontró rol para el usuario");
         }
         return switch (RoleCode.valueOf(role)) {
             case ADMIN -> findAll();
-            case USER, BASIC, PREMIUM -> {
+            case USER, BASIC, PREMIUM, ROLE_ANONYMOUS -> {
                 StatusResponse status = statusService.findByCode(StatusCode.ACTIVE);
                 yield mapToResponseList(findAllByStatusId(status.id()));
             }

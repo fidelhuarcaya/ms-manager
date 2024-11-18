@@ -5,4 +5,5 @@ public enum RoleCode {
     BASIC,
     PREMIUM,
     ADMIN,
+    ROLE_ANONYMOUS
 }
