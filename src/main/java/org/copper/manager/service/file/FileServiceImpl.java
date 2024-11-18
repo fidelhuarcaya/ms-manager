@@ -33,7 +33,7 @@ public class FileServiceImpl implements FileService {
             BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(file.getContentType()).build();
             storage.create(blobInfo, file.getBytes());
 
-            return String.format("https://storage.googleapis.com/%s/%s", bucketName, fileName);
+            return String.format("https://storage.cloud.google.com/%s/%s", bucketName, fileName);
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload file", e);
         }
@@ -43,6 +43,22 @@ public class FileServiceImpl implements FileService {
     public byte[] download(String fileName) {
         BlobId blobId = BlobId.of(bucketName, fileName);
         return storage.readAllBytes(blobId);
+    }
+
+    @Override
+    public void delete(String fileUrl) {
+        try {
+            // Extraer nombre del archivo de la URL
+            String fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+            BlobId blobId = BlobId.of(bucketName, fileName);
+            boolean deleted = storage.delete(blobId);
+
+            if (!deleted) {
+                throw new RuntimeException("No se pudo eliminar el archivo: " + fileName);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error al eliminar el archivo", e);
+        }
     }
 }
 

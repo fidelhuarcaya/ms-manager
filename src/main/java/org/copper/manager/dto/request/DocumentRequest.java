@@ -3,6 +3,8 @@ package org.copper.manager.dto.request;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Data
 public class DocumentRequest {
     private Long id;
@@ -10,5 +12,5 @@ public class DocumentRequest {
     private String url;
     private Long craftId;
     private Integer statusId;
-    private MultipartFile file;
+    private List<MultipartFile> files ;
 }

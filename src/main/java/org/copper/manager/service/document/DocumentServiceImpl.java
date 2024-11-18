@@ -11,12 +11,12 @@ import org.copper.manager.exception.RequestException;
 import org.copper.manager.mapper.DocumentMapper;
 import org.copper.manager.repository.DocumentRepository;
 import org.copper.manager.service.common.basic.AbstractEntityService;
-import org.copper.manager.service.common.context.ContextService;
 import org.copper.manager.service.file.FileService;
 import org.copper.manager.service.status.StatusService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @RequiredArgsConstructor
@@ -35,12 +35,17 @@ public class DocumentServiceImpl extends AbstractEntityService<Document, Documen
     @Override
     @Transactional
     public DocumentResponse create(DocumentRequest request) {
-        String url = fileService.upload(request.getFile());
-        request.setUrl(url);
         StatusResponse status = statusService.findByCode(StatusCode.ACTIVE);
         request.setStatusId(status.id());
-        return documentMapper.toResponse(
-                documentRepository.save(documentMapper.toEntity(request)));
+
+        request.getFiles().forEach(file ->{
+            String url = fileService.upload(file);
+            request.setName(file.getOriginalFilename());
+            request.setUrl(url);
+            documentRepository.save(documentMapper.toEntity(request));
+        });
+        
+        return null;
     }
 
     @Override
@@ -54,8 +59,11 @@ public class DocumentServiceImpl extends AbstractEntityService<Document, Documen
                 .save(documentMapper.toEntity(request)));
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
+        Document document = documentRepository.findById(id).orElseThrow(() -> new RequestException("El documento con id " + id + "no exitste."));
+        fileService.delete(document.getUrl());
         documentRepository.deleteById(id);
     }
 
