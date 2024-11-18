@@ -2,6 +2,7 @@ package org.copper.manager.service.file;
 
 import io.jsonwebtoken.lang.Assert;
 import lombok.RequiredArgsConstructor;
+import org.copper.manager.exception.RequestException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +36,7 @@ public class FileServiceImpl implements FileService {
 
             return String.format("https://storage.cloud.google.com/%s/%s", bucketName, fileName);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to upload file", e);
+            throw new RequestException("Falló al subir el archiva");
         }
     }
 
