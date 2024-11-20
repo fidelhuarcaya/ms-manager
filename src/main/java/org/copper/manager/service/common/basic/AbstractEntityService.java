@@ -31,7 +31,7 @@ public abstract class AbstractEntityService<T, R> {
 
     public List<R> getAll() {
         String role = contextService.getCurrentUserRole();
-        if (role == null || !Objects.equals(RoleCode.ROLE_ANONYMOUS.name(), role)) {
+        if (role == null) {
             throw new RequestException("No se encontró rol para el usuario");
         }
         return switch (RoleCode.valueOf(role)) {
