@@ -55,7 +55,6 @@ public class DocumentServiceImpl extends AbstractEntityService<Document, Documen
     @Transactional
     @Override
     public void delete(Long id) {
-        Document document = documentRepository.findById(id).orElseThrow(() -> new RequestException("El documento con id " + id + "no exitste."));
         documentRepository.deleteById(id);
     }
 
