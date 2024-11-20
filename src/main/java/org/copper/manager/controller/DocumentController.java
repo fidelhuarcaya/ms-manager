@@ -25,7 +25,7 @@ public class DocumentController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<DocumentResponse> create(@ModelAttribute @Valid DocumentRequest request) {
+    public ResponseEntity<DocumentResponse> create(@RequestBody @Valid DocumentRequest request) {
         return ResponseEntity.ok(documentService.create(request));
     }
 
@@ -33,7 +33,7 @@ public class DocumentController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<DocumentResponse> update(
             @PathVariable("id") Long id,
-            @ModelAttribute @Valid DocumentRequest request) {
+            @RequestBody @Valid DocumentRequest request) {
         return ResponseEntity.ok(documentService.update(id, request));
     }
 

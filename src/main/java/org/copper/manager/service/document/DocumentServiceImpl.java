@@ -37,15 +37,8 @@ public class DocumentServiceImpl extends AbstractEntityService<Document, Documen
     public DocumentResponse create(DocumentRequest request) {
         StatusResponse status = statusService.findByCode(StatusCode.ACTIVE);
         request.setStatusId(status.id());
-
-        request.getFiles().forEach(file ->{
-            String url = fileService.upload(file);
-            request.setName(file.getOriginalFilename());
-            request.setUrl(url);
-            documentRepository.save(documentMapper.toEntity(request));
-        });
-        
-        return null;
+        return documentMapper.toResponse(documentRepository
+                .save(documentMapper.toEntity(request)));
     }
 
     @Override
