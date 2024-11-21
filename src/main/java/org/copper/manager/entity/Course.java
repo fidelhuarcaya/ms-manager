@@ -23,6 +23,9 @@ public class Course extends Auditable {
     @Column(name = "banner")
     private String banner;
 
+    @Column(name = "duration")
+    private String duration;
+
     @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
