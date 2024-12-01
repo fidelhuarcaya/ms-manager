@@ -4,6 +4,8 @@ public record CourseResponse(
     Long id,
     String name,
     String description,
-    String banner
+    String banner,
+    StatusResponse status,
+    String duration
 ) {
 }
