@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "video")
-public class Video extends Auditable {
+@Table(name = "resource")
+public class Resource extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -23,6 +23,10 @@ public class Video extends Auditable {
     @ManyToOne
     @JoinColumn(name = "topic_id")
     private Topic topic;
+
+    @ManyToOne
+    @JoinColumn(name = "resource_type_id")
+    private ResourceType resourceType;
 
     @ManyToOne
     @JoinColumn(name = "status_id")
