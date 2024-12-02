@@ -38,7 +38,9 @@ public class ResourceServiceImpl extends AbstractEntityService<Resource, Resourc
 
         request.setResourceTypeId(resourceTypeResponse.getId());
 
-        return resourceMapper.toDto(resourceRepository.save(resourceMapper.toEntity(request)));
+        ResourceResponse response = resourceMapper.toDto(resourceRepository.save(resourceMapper.toEntity(request)));
+        response.setResourceType(resourceTypeResponse);
+        return response;
     }
 
     @Override

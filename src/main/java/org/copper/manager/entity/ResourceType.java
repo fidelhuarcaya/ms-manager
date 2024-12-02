@@ -19,7 +19,7 @@ public class ResourceType {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "code")
+    @Column(name = "code", unique = true)
     private ResourceCode code;
 
 }

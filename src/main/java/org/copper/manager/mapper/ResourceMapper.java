@@ -14,6 +14,8 @@ public interface ResourceMapper {
     @Mapping(target = "resourceType.id", source = "resourceTypeId")
     Resource toEntity(ResourceRequest request);
 
+    @Mapping(target = "resourceType.code", source = "resourceType.code")
+    @Mapping(target = "resourceType.id", source = "resourceType.id")
     ResourceResponse toDto(Resource resource);
 
     List<ResourceResponse> toDtoList(List<Resource> resourceList);

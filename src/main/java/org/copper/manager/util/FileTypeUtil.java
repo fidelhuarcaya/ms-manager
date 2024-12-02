@@ -9,7 +9,8 @@ public class FileTypeUtil {
             throw new IllegalArgumentException("El URL de Google Drive no puede estar vacío.");
         }
 
-        if (driveUrl.contains("/video")) {
+        if (driveUrl.contains("/video") || driveUrl.contains("/vimeo")
+                || driveUrl.contains("/youtube") || driveUrl.contains("youtu.be")) {
             return ResourceCode.VIDEO;
         } else if (driveUrl.contains("/presentation")) {
             return ResourceCode.PPTX;

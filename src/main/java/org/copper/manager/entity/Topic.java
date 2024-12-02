@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -25,4 +28,6 @@ public class Topic extends Auditable {
     @JoinColumn(name = "status_id")
     private Status status;
 
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Resource> resources = new ArrayList<>();
 }
