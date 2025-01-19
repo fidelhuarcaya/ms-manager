@@ -18,6 +18,7 @@ public class TopicController {
     private final TopicService topicService;
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM', 'ROLE_ANONYMOUS')")
     public ResponseEntity<List<TopicResponse>> getAll() {
         return ResponseEntity.ok(topicService.getAll());
     }

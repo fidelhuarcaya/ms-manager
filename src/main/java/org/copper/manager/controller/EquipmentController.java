@@ -17,7 +17,7 @@ import java.util.List;
 public class EquipmentController {
     private final EquipmentService equipmentService;
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM', 'ROLE_ANONYMOUS')")
     public ResponseEntity<List<EquipmentResponse>> getAll() {
         return ResponseEntity.ok(equipmentService.getAll());
     }

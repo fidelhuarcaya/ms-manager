@@ -18,7 +18,7 @@ public class CraftController {
     private final CraftService craftService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM', 'ROLE_ANONYMOUS')")
     public ResponseEntity<List<CraftResponse>> getAll() {
         return ResponseEntity.ok(craftService.getAll());
     }

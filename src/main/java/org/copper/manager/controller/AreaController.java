@@ -18,7 +18,7 @@ public class AreaController {
     private final AreaService areaService;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM', 'ROLE_ANONYMOUS')")
     public ResponseEntity<List<AreaResponse>> getAll() {
         return ResponseEntity.ok(areaService.getAll());
     }

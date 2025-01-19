@@ -18,7 +18,7 @@ public class DocumentController {
     private final DocumentService documentService;
     
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER', 'BASIC', 'PREMIUM', 'ROLE_ANONYMOUS')")
     public ResponseEntity<List<DocumentResponse>> getAll() {
         return ResponseEntity.ok(documentService.getAll());
     }
