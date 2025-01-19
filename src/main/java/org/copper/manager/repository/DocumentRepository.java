@@ -12,6 +12,6 @@ import java.util.List;
 public interface DocumentRepository extends JpaRepository<Document, Long> {
     List<Document> findAllByStatusId(Integer id);
 
-    @Query("select d from Document d where d.craft.id = :craftId")
+    @Query("select d from Document d where d.craft.id = :craftId and d.status.code = 'ACTIVE'")
     List<Document> findByCraftId(@Param("craftId") Long craftId);
 }
