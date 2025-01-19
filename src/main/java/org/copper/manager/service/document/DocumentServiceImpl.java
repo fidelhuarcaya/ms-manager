@@ -31,7 +31,6 @@ public class DocumentServiceImpl extends AbstractEntityService<Document, Documen
         return documentMapper.toResponseList(documentRepository.findAll());
     }
 
-
     @Override
     @Transactional
     public DocumentResponse create(DocumentRequest request) {

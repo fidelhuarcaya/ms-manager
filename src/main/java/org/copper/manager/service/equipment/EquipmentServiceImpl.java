@@ -28,8 +28,6 @@ public class EquipmentServiceImpl extends AbstractEntityService<Equipment, Equip
         return equipmentMapper.toResponseList(equipmentRepository.findAll());
     }
 
-
-
     @Override
     @Transactional
     public EquipmentResponse create(EquipmentRequest request) {
