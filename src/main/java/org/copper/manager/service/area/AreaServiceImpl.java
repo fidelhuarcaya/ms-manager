@@ -23,9 +23,8 @@ public class AreaServiceImpl extends AbstractEntityService<Area, AreaResponse> i
 
     @Override
     protected List<AreaResponse> findAll() {
-        return areaMapper.toResponseList(areaRepository.findAll());
+        return super.getAll();
     }
-
 
     @Override
     @Transactional

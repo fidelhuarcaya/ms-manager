@@ -27,7 +27,7 @@ public class CraftServiceImpl extends AbstractEntityService<Craft, CraftResponse
 
     @Override
     public List<CraftResponse> findAll() {
-        return craftMapper.toResponseList(craftRepository.findAll());
+        return super.getAll();
     }
 
     @Override
